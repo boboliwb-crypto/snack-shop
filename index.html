@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>小马零食铺</title>
+<style>
+:root {
+  --purple: #7B68AE;
+  --purple-dark: #5C4F8C;
+  --purple-light: #B8A8E0;
+  --pink: #F8B4C2;
+  --blue: #A8D8EA;
+  --green: #B5EAD7;
+  --bg1: #fce4ec;
+  --bg2: #f3e5f5;
+  --bg3: #e8eaf6;
+  --bg4: #e0f7fa;
+  --radius: 18px;
+  --radius-sm: 12px;
+  --shadow: 0 4px 16px rgba(123,104,174,0.08);
+  --shadow-lg: 0 8px 32px rgba(123,104,174,0.12);
+  --glass: rgba(255,255,255,0.55);
+  --glass-strong: rgba(255,255,255,0.7);
+  --glass-border: rgba(255,255,255,0.7);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  background: linear-gradient(160deg, var(--bg1) 0%, var(--bg2) 25%, var(--bg3) 60%, var(--bg4) 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.app {
+  width: 100%;
+  max-width: 430px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 16px 12px 100px;
+  position: relative;
+}
+
+/* ===== Frosted Glass ===== */
+.glass {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-strong {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: var(--glass-strong);
+  border: 1px solid rgba(255,255,255,0.85);
+}
+
+/* ===== Header ===== */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-radius: var(--radius);
+  margin-bottom: 14px;
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 16px;
+  z-index: 100;
+}
+
+.header-left { display:flex; align-items:center; gap:10px; }
+.header-emoji { font-size:26px; animation: float 3s ease-in-out infinite; }
+.header-title { font-size:17px; font-weight:800; color:var(--purple-dark); letter-spacing:0.5px; }
+
+.header-actions { display:flex; gap:8px; }
+
+.header-btn {
+  padding: 7px 14px;
+  border-radius: 16px;
+  border: none;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+  color: var(--purple);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(123,104,174,0.1);
+  border: 1px solid rgba(123,104,174,0.1);
+  white-space: nowrap;
+}
+.header-btn:active { transform:scale(0.92); }
+.header-btn.active { background:var(--purple); color:white; }
+.header-btn .badge {
+  background: #FF6B8A;
+  color: white;
+  border-radius: 50%;
+  min-width: 18px;
+  height: 18px;
+  font-size: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 4px;
+  font-weight: 800;
+}
+
+/* ===== Search ===== */
+.search-wrap {
+  padding: 10px 16px;
+  border-radius: 24px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: var(--shadow);
+}
+.search-wrap input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  color: var(--purple-dark);
+  outline: none;
+}
+.search-wrap input::placeholder { color: #C0B8D8; }
+.search-icon { font-size:16px; opacity:0.5; }
+
+/* ===== Categories ===== */
+.cats-wrap {
+  display: flex;
+  gap: 7px;
+  overflow-x: auto;
+  padding: 2px 2px 8px;
+  margin-bottom: 10px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.cats-wrap::-webkit-scrollbar { display:none; }
+
+.cat-chip {
+  padding: 7px 15px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+  border: 1px solid rgba(255,255,255,0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(255,255,255,0.5);
+  color: #999;
+  user-select: none;
+}
+.cat-chip:active { transform:scale(0.94); }
+.cat-chip.selected {
+  background: rgba(123,104,174,0.85);
+  color: white;
+  box-shadow: 0 3px 12px rgba(123,104,174,0.3);
+}
+
+/* ===== Product Grid ===== */
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.product-card {
+  border-radius: var(--radius);
+  padding: 16px 10px 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+  box-shadow: 0 2px 12px rgba(123,104,174,0.04);
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  animation: fadeUp 0.4s ease-out backwards;
+}
+.product-card:active { transform:scale(0.95); }
+.product-card .emoji {
+  font-size: 42px;
+  margin-bottom: 6px;
+  filter: drop-shadow(0 4px 4px rgba(0,0,0,0.08));
+  transition: transform 0.3s;
+}
+.product-card:active .emoji { transform:scale(1.15); }
+.product-card .name {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--purple-dark);
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+.product-card .price {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--purple);
+  margin-bottom: 6px;
+}
+.product-card .add-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 5px 14px;
+  border-radius: 16px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--purple);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background: rgba(123,104,174,0.1);
+  border: 1px solid rgba(123,104,174,0.1);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.product-card .add-btn:active {
+  animation: jelly 0.5s ease;
+  background: var(--purple);
+  color: white;
+}
+.product-card .tag {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 9px;
+  padding: 2px 7px;
+  border-radius: 8px;
+  font-weight: 700;
+}
+
+/* ===== Bottom Cart Bar ===== */
+.cart-bar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 430px;
+  padding: 12px 16px;
+  border-radius: 22px 22px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 -6px 24px rgba(123,104,174,0.12);
+  z-index: 200;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+.cart-bar-left { display:flex; align-items:center; gap:10px; }
+.cart-count {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--purple), var(--purple-light));
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 800;
+  box-shadow: 0 3px 10px rgba(123,104,174,0.3);
+  transition: transform 0.3s;
+}
+.cart-count.bump { animation: jelly 0.5s ease; }
+.cart-info .total { font-size:15px; font-weight:800; color:var(--purple-dark); }
+.cart-info .hint { font-size:9px; color:#C0B8D8; }
+.cart-checkout {
+  background: linear-gradient(135deg, var(--purple), #9B8EC8, var(--purple-light));
+  color: white;
+  border: none;
+  border-radius: 22px;
+  padding: 10px 20px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 14px rgba(123,104,174,0.35);
+}
+
+/* ===== Cart Panel ===== */
+.cart-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 300;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.cart-overlay.open { opacity:1; pointer-events:auto; }
+
+.cart-panel {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(100%);
+  width: 100%;
+  max-width: 430px;
+  max-height: 70vh;
+  max-height: 70dvh;
+  border-radius: 24px 24px 0 0;
+  z-index: 301;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+  overflow: hidden;
+}
+.cart-panel.open { transform: translateX(-50%) translateY(0); }
+
+.cart-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.cart-panel-header h3 { font-size:16px; color:var(--purple-dark); }
+.cart-close {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0,0,0,0.05);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cart-items { flex:1; overflow-y:auto; padding:12px 16px; }
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 8px;
+  animation: fadeUp 0.3s ease-out;
+}
+.cart-item-emoji { font-size:32px; }
+.cart-item-info { flex:1; }
+.cart-item-name { font-size:12px; font-weight:700; color:#555; }
+.cart-item-price { font-size:11px; color:var(--purple); font-weight:700; }
+.cart-qty {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cart-qty button {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  border: 1px solid rgba(123,104,174,0.15);
+  background: rgba(123,104,174,0.08);
+  font-size: 14px;
+  cursor: pointer;
+  color: var(--purple);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+.cart-qty span { font-size:13px; font-weight:700; color:var(--purple-dark); min-width:18px; text-align:center; }
+
+.cart-panel-footer {
+  padding: 14px 20px 24px;
+  border-top: 1px solid rgba(0,0,0,0.05);
+}
+.cart-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: var(--purple-dark);
+  font-weight: 700;
+}
+.cart-total-row .amount { font-size:20px; font-weight:800; color:var(--purple); }
+
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 22px;
+  background: linear-gradient(135deg, var(--purple), #9B8EC8, var(--purple-light));
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 2px;
+  box-shadow: 0 6px 20px rgba(123,104,174,0.35);
+  transition: all 0.25s;
+}
+.submit-btn:active { transform:scale(0.96); }
+
+.empty-cart {
+  text-align: center;
+  padding: 40px;
+  color: #C0B8D8;
+  font-size: 13px;
+}
+.empty-cart .empty-icon { font-size: 50px; margin-bottom: 10px; }
+
+/* ===== Orders View ===== */
+.orders-view { display:none; }
+.orders-view.show { display:block; }
+.products-view.hide { display:none; }
+
+.order-card {
+  padding: 16px;
+  border-radius: var(--radius);
+  margin-bottom: 12px;
+  box-shadow: var(--shadow);
+}
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.order-id { font-size:11px; color:#999; }
+.order-time { font-size:11px; color:#BBB; }
+.order-items-preview { font-size:12px; color:#666; margin-bottom: 8px; line-height:1.5; }
+.order-total { font-size:15px; font-weight:800; color:var(--purple); text-align:right; }
+.order-status {
+  font-size: 10px;
+  padding: 3px 10px;
+  border-radius: 10px;
+  font-weight: 700;
+  background: rgba(181,234,215,0.5);
+  color: #4A9;
+}
+
+.empty-orders {
+  text-align: center;
+  padding: 60px 20px;
+  color: #C0B8D8;
+}
+.empty-orders .empty-icon { font-size: 60px; margin-bottom: 12px; }
+
+/* ===== Toast ===== */
+.toast {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-120px);
+  padding: 12px 24px;
+  border-radius: 22px;
+  background: rgba(123,104,174,0.92);
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  z-index: 999;
+  transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+  pointer-events: none;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.toast.show { transform:translateX(-50%) translateY(0); }
+
+/* ===== Mascot ===== */
+.mascot {
+  position: fixed;
+  bottom: 90px;
+  right: max(12px, calc(50% - 215px + 12px));
+  font-size: 34px;
+  z-index: 150;
+  cursor: pointer;
+  transition: transform 0.3s;
+  filter: drop-shadow(0 3px 6px rgba(0,0,0,0.1));
+  animation: mascotBounce 4s ease-in-out infinite;
+}
+.mascot:active { transform:scale(1.2); }
+.mascot-bubble {
+  position: absolute;
+  top: -28px;
+  right: -8px;
+  background: white;
+  border-radius: 12px;
+  padding: 4px 10px;
+  font-size: 10px;
+  color: var(--purple);
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: all 0.3s;
+  pointer-events: none;
+  font-weight: 600;
+}
+.mascot-bubble.show { opacity:1; transform:translateY(0); }
+
+/* ===== Particles ===== */
+.particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.particle {
+  position: absolute;
+  animation: fall linear infinite;
+  opacity: 0.3;
+  font-size: 14px;
+}
+
+/* ===== Loading ===== */
+.loading-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+.spinner-cookie {
+  font-size: 36px;
+  animation: spinCookie 1s ease-in-out infinite;
+}
+
+/* ===== Confetti ===== */
+.confetti-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 500;
+}
+.confetti-piece {
+  position: absolute;
+  animation: confettiFall 1.5s ease-out forwards;
+}
+
+/* ===== Animations ===== */
+@keyframes float {
+  0%,100% { transform:translateY(0); }
+  50% { transform:translateY(-6px); }
+}
+@keyframes jelly {
+  0%,100% { transform:scale(1); }
+  25% { transform:scale(1.15); }
+  50% { transform:scale(0.9); }
+  75% { transform:scale(1.05); }
+}
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(12px); }
+  to { opacity:1; transform:translateY(0); }
+}
+@keyframes mascotBounce {
+  0%,100% { transform:translateY(0); }
+  15% { transform:translateY(-20px); }
+  30% { transform:translateY(0); }
+  45% { transform:translateY(-8px); }
+  60% { transform:translateY(0); }
+}
+@keyframes spinCookie {
+  0% { transform:rotate(0deg) scale(1); }
+  50% { transform:rotate(180deg) scale(1.3); }
+  100% { transform:rotate(360deg) scale(1); }
+}
+@keyframes fall {
+  0% { transform:translateY(-10vh) rotate(0deg); opacity:0; }
+  10% { opacity:0.35; }
+  90% { opacity:0.3; }
+  100% { transform:translateY(105vh) rotate(360deg); opacity:0; }
+}
+@keyframes confettiFall {
+  0% { transform:translateY(-10vh) rotate(0deg); opacity:1; }
+  100% { transform:translateY(105vh) rotate(720deg); opacity:0; }
+}
+@keyframes popIn {
+  0% { transform:scale(0); opacity:0; }
+  70% { transform:scale(1.1); }
+  100% { transform:scale(1); opacity:1; }
+}
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar { width:3px; }
+::-webkit-scrollbar-thumb { background:rgba(123,104,174,0.2); border-radius:10px; }
+
+/* ===== Responsive ===== */
+@media (min-width: 431px) {
+  .app { border-left:1px solid rgba(0,0,0,0.03); border-right:1px solid rgba(0,0,0,0.03); }
+}
+</style>
+</head>
+<body>
+
+<div class="particles" id="particles"></div>
+<div class="app" id="app">
+
+  <!-- Header -->
+  <div class="header glass-strong" id="header">
+    <div class="header-left">
+      <span class="header-emoji">🌟</span>
+      <span class="header-title">小马零食铺</span>
+    </div>
+    <div class="header-actions">
+      <button class="header-btn active" onclick="showProducts()" id="btn-products">🛍️ 选购</button>
+      <button class="header-btn" onclick="showOrders()" id="btn-orders">📋 订单</button>
+    </div>
+  </div>
+
+  <!-- Products View -->
+  <div class="products-view" id="productsView">
+
+    <!-- Search -->
+    <div class="search-wrap glass" id="searchWrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="搜搜想吃什么..." oninput="onSearch()">
+    </div>
+
+    <!-- Categories -->
+    <div class="cats-wrap glass" id="catsWrap" style="border-radius:20px; padding:8px 10px;">
+      <span class="cat-chip selected" data-cat="all" onclick="selectCat('all',this)">🔥 全部</span>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="product-grid" id="productGrid"></div>
+    <div style="text-align:center;padding:20px;color:#C0B8D8;font-size:12px;" id="productCount"></div>
+  </div>
+
+  <!-- Orders View -->
+  <div class="orders-view" id="ordersView">
+    <div id="ordersList"></div>
+  </div>
+
+  <!-- Cart Bar -->
+  <div class="cart-bar glass-strong" id="cartBar" onclick="openCart()">
+    <div class="cart-bar-left">
+      <div class="cart-count" id="cartCountIcon">0</div>
+      <div class="cart-info">
+        <div class="total" id="cartTotal">¥0.00</div>
+        <div class="hint" id="cartHint">选点好吃的吧~</div>
+      </div>
+    </div>
+    <button class="cart-checkout" onclick="event.stopPropagation();openCart();">去结算 ✨</button>
+  </div>
+
+  <!-- Cart Overlay -->
+  <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+
+  <!-- Cart Panel -->
+  <div class="cart-panel glass-strong" id="cartPanel">
+    <div class="cart-panel-header">
+      <h3>🛒 购物车</h3>
+      <button class="cart-close" onclick="closeCart()">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-panel-footer">
+      <div class="cart-total-row">
+        <span>合计</span>
+        <span class="amount" id="cartPanelTotal">¥0.00</span>
+      </div>
+      <button class="submit-btn" onclick="submitOrder()">✨ 提交订单</button>
+    </div>
+  </div>
+
+  <!-- Mascot -->
+  <div class="mascot" id="mascot" onclick="pokeMascot()">
+    <div class="mascot-bubble" id="mascotBubble">好吃哦~</div>
+    🐱
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Confetti Container -->
+  <div class="confetti-container" id="confetti"></div>
+
+</div>
+
+<script src="config.js"></script>
+<script src="products.js"></script>
+<script>
+// ==================== CONFIG ====================
+let SUPABASE_URL = '';
+let SUPABASE_KEY = '';
+try {
+  SUPABASE_URL = SUPABASE_CONFIG.url || '';
+  SUPABASE_KEY = SUPABASE_CONFIG.anonKey || '';
+} catch(e) { /* use localStorage fallback */ }
+
+// Load Supabase SDK dynamically if configured
+let supabase = null;
+async function initSupabase() {
+  if (!SUPABASE_URL || !SUPABASE_KEY) return;
+  try {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
+    await new Promise((resolve, reject) => {
+      script.onload = resolve;
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  } catch(e) { console.log('Supabase 未配置，使用本地存储'); }
+}
+
+// ==================== STATE ====================
+let cart = [];
+let currentView = 'products';
+let currentCat = 'all';
+let searchQuery = '';
+// ==================== INIT ====================
+async function init() {
+  await initSupabase();
+  loadCart();
+  renderCategories();
+  renderProducts();
+  updateCartBar();
+  spawnParticles();
+  randomMascotBubble();
+  setInterval(randomMascotBubble, 15000);
+}
+
+function loadCart() {
+  try {
+    const saved = localStorage.getItem('snack_cart');
+    if (saved) cart = JSON.parse(saved);
+  } catch(e) { cart = []; }
+}
+
+function saveCart() {
+  localStorage.setItem('snack_cart', JSON.stringify(cart));
+}
+
+// ==================== RENDER CATEGORIES ====================
+function renderCategories() {
+  const cats = [...new Set(PRODUCTS.map(p => p.category))];
+  const wrap = document.getElementById('catsWrap');
+  wrap.innerHTML = '<span class="cat-chip selected" data-cat="all" onclick="selectCat(\'all\',this)">🔥 全部</span>';
+  cats.forEach(cat => {
+    const emoji = PRODUCTS.find(p => p.category === cat)?.emoji || '🍬';
+    const chip = document.createElement('span');
+    chip.className = 'cat-chip';
+    chip.dataset.cat = cat;
+    chip.textContent = emoji + ' ' + cat;
+    chip.onclick = () => selectCat(cat, chip);
+    wrap.appendChild(chip);
+  });
+}
+
+function selectCat(cat, el) {
+  currentCat = cat;
+  document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  renderProducts();
+  document.getElementById('productGrid').scrollIntoView({behavior:'smooth'});
+}
+
+// ==================== RENDER PRODUCTS ====================
+function renderProducts() {
+  let filtered = PRODUCTS;
+  if (currentCat !== 'all') {
+    filtered = filtered.filter(p => p.category === currentCat);
+  }
+  if (searchQuery) {
+    const q = searchQuery.toLowerCase();
+    filtered = filtered.filter(p =>
+      p.name.toLowerCase().includes(q) ||
+      p.category.toLowerCase().includes(q)
+    );
+  }
+
+  const grid = document.getElementById('productGrid');
+  const count = document.getElementById('productCount');
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px;color:#C0B8D8;">
+      <div style="font-size:48px;margin-bottom:10px;">🔍</div>
+      <div style="font-size:14px;">没找到 "${searchQuery}"</div></div>`;
+  } else {
+    grid.innerHTML = filtered.slice(0, 200).map((p, i) => `
+      <div class="product-card glass" style="animation-delay:${i*0.02}s" onclick="addToCart(${p.id})">
+        ${Math.random() < 0.15 ? '<span class="tag" style="background:rgba(255,182,193,0.3);color:#E85D75;">🔥热卖</span>' : ''}
+        <div class="emoji">${p.emoji}</div>
+        <div class="name">${p.name}</div>
+        <div class="price">¥${p.price.toFixed(1)}</div>
+        <span class="add-btn">＋ 加入</span>
+      </div>
+    `).join('');
+  }
+
+  count.textContent = filtered.length > 200
+    ? `显示前 200 个，共 ${filtered.length} 个 · 试试搜索缩小范围`
+    : `共 ${filtered.length} 个商品`;
+}
+
+function onSearch() {
+  searchQuery = document.getElementById('searchInput').value.trim();
+  renderProducts();
+}
+
+// ==================== CART ====================
+function addToCart(productId) {
+  const product = PRODUCTS.find(p => p.id === productId);
+  if (!product) return;
+
+  const existing = cart.find(item => item.id === productId);
+  if (existing) {
+    existing.qty++;
+  } else {
+    cart.push({ id: productId, name: product.name, emoji: product.emoji, price: product.price, qty: 1 });
+  }
+  saveCart();
+  updateCartBar();
+
+  // Animate cart icon
+  const icon = document.getElementById('cartCountIcon');
+  icon.classList.remove('bump');
+  void icon.offsetWidth;
+  icon.classList.add('bump');
+
+  // Show mascot reaction
+  const msgs = ['好吃哦~', '选得好!', '这个超棒的', '嘿嘿喜欢~', '再来一个?'];
+  showMascotBubble(msgs[Math.floor(Math.random()*msgs.length)]);
+
+  // Flash feedback
+  toast('已加入 🛒');
+}
+
+function removeFromCart(productId) {
+  cart = cart.filter(item => item.id !== productId);
+  saveCart();
+  updateCartBar();
+  renderCartItems();
+}
+
+function changeQty(productId, delta) {
+  const item = cart.find(i => i.id === productId);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) {
+    removeFromCart(productId);
+    return;
+  }
+  saveCart();
+  updateCartBar();
+  renderCartItems();
+}
+
+function getCartTotal() {
+  return cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+}
+
+function getCartCount() {
+  return cart.reduce((sum, i) => sum + i.qty, 0);
+}
+
+function updateCartBar() {
+  const count = getCartCount();
+  const total = getCartTotal();
+  document.getElementById('cartCountIcon').textContent = count;
+  document.getElementById('cartTotal').textContent = '¥' + total.toFixed(1);
+  document.getElementById('cartHint').textContent = count === 0
+    ? '选点好吃的吧~'
+    : `共 ${count} 件 · 预计15分钟`;
+}
+
+// ==================== CART PANEL ====================
+function openCart() {
+  document.getElementById('cartOverlay').classList.add('open');
+  document.getElementById('cartPanel').classList.add('open');
+  renderCartItems();
+}
+
+function closeCart() {
+  document.getElementById('cartOverlay').classList.remove('open');
+  document.getElementById('cartPanel').classList.remove('open');
+}
+
+function renderCartItems() {
+  const el = document.getElementById('cartItems');
+  const totalEl = document.getElementById('cartPanelTotal');
+
+  if (cart.length === 0) {
+    el.innerHTML = `<div class="empty-cart">
+      <div class="empty-icon">🛒</div>
+      <div>购物车空空如也~<br/>去选点好吃的吧!</div></div>`;
+  } else {
+    el.innerHTML = cart.map(item => `
+      <div class="cart-item glass">
+        <span class="cart-item-emoji">${item.emoji}</span>
+        <div class="cart-item-info">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-price">¥${item.price.toFixed(1)} × ${item.qty} = ¥${(item.price*item.qty).toFixed(1)}</div>
+        </div>
+        <div class="cart-qty">
+          <button onclick="changeQty(${item.id},-1)">−</button>
+          <span>${item.qty}</span>
+          <button onclick="changeQty(${item.id},1)">+</button>
+        </div>
+      </div>`).join('');
+  }
+
+  totalEl.textContent = '¥' + getCartTotal().toFixed(1);
+}
+
+// ==================== ORDER ====================
+async function submitOrder() {
+  if (cart.length === 0) {
+    toast('购物车是空的哦~ 🛒');
+    return;
+  }
+
+  const order = {
+    items: cart.map(i => ({ name: i.name, emoji: i.emoji, price: i.price, qty: i.qty })),
+    total: getCartTotal(),
+    itemCount: getCartCount(),
+    created_at: new Date().toISOString(),
+    status: '已下单',
+  };
+
+  if (supabase) {
+    try {
+      const { data, error } = await supabase.from('orders').insert([order]).select();
+      if (error) throw error;
+      order.id = data[0].id;
+    } catch(e) {
+      console.error('Supabase error:', e);
+      order.id = Date.now();
+      saveLocalOrder(order);
+    }
+  } else {
+    order.id = Date.now();
+    saveLocalOrder(order);
+  }
+
+  // Celebrate!
+  spawnConfetti();
+  showMascotBubble('下单成功! 🎉');
+  toast('✨ 下单成功！');
+
+  // Clear cart
+  cart = [];
+  saveCart();
+  updateCartBar();
+  closeCart();
+}
+
+function saveLocalOrder(order) {
+  const orders = JSON.parse(localStorage.getItem('snack_orders') || '[]');
+  orders.unshift(order);
+  localStorage.setItem('snack_orders', JSON.stringify(orders));
+}
+
+function getLocalOrders() {
+  return JSON.parse(localStorage.getItem('snack_orders') || '[]');
+}
+
+// ==================== ORDERS VIEW ====================
+async function showOrders() {
+  currentView = 'orders';
+  document.getElementById('productsView').classList.add('hide');
+  document.getElementById('ordersView').classList.add('show');
+  document.getElementById('btn-products').classList.remove('active');
+  document.getElementById('btn-orders').classList.add('active');
+  document.getElementById('cartBar').style.display = 'none';
+
+  let orders = [];
+
+  if (supabase) {
+    try {
+      const { data, error } = await supabase.from('orders').select('*').order('created_at', { ascending: false }).limit(100);
+      if (!error && data) orders = data;
+    } catch(e) { console.error('Fetch orders error:', e); }
+  }
+
+  // Merge with local orders
+  const localOrders = getLocalOrders();
+  const allOrders = [...orders, ...localOrders].sort((a, b) =>
+    new Date(b.created_at) - new Date(a.created_at)
+  );
+
+  renderOrders(allOrders);
+}
+
+function renderOrders(orders) {
+  const el = document.getElementById('ordersList');
+
+  if (orders.length === 0) {
+    el.innerHTML = `<div class="empty-orders glass" style="padding:50px 20px;">
+      <div class="empty-icon">📋</div>
+      <div style="font-size:15px;">还没有订单</div></div>`;
+    return;
+  }
+
+  el.innerHTML = orders.map(o => `
+    <div class="order-card glass" style="animation:fadeUp 0.3s ease-out;">
+      <div class="order-header">
+        <span class="order-id">#${String(o.id).slice(-6)}</span>
+        <span class="order-status">${o.status || '已下单'}</span>
+        <span class="order-time">${new Date(o.created_at).toLocaleString('zh-CN', {month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'})}</span>
+      </div>
+      <div class="order-items-preview">
+        ${(o.items || []).map(i => `${i.emoji} ${i.name} ×${i.qty}`).join(' | ')}
+      </div>
+      <div class="order-total">
+        共 ${o.itemCount || (o.items||[]).reduce((s,i)=>s+i.qty,0)} 件 · ¥${o.total.toFixed(1)}
+      </div>
+    </div>
+  `).join('');
+}
+
+function showProducts() {
+  currentView = 'products';
+  document.getElementById('productsView').classList.remove('hide');
+  document.getElementById('ordersView').classList.remove('show');
+  document.getElementById('btn-products').classList.add('active');
+  document.getElementById('btn-orders').classList.remove('active');
+  document.getElementById('cartBar').style.display = 'flex';
+  renderProducts();
+}
+
+// ==================== TOAST ====================
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(el._timeout);
+  el._timeout = setTimeout(() => el.classList.remove('show'), 2000);
+}
+
+// ==================== MASCOT ====================
+function showMascotBubble(msg) {
+  const bubble = document.getElementById('mascotBubble');
+  bubble.textContent = msg;
+  bubble.classList.add('show');
+  clearTimeout(bubble._timeout);
+  bubble._timeout = setTimeout(() => bubble.classList.remove('show'), 2500);
+}
+
+function pokeMascot() {
+  const msgs = ['喵~', '别戳我!', '嘻嘻~', '选零食吗?', '加油吃!', '今天想吃什么?', '嗷呜~'];
+  showMascotBubble(msgs[Math.floor(Math.random()*msgs.length)]);
+}
+
+function randomMascotBubble() {
+  if (cart.length > 0) return;
+  const msgs = ['饿了没?', '看看新品~', '今天有饼干哦', '来杯饮料?', '喵~想吃啥'];
+  showMascotBubble(msgs[Math.floor(Math.random()*msgs.length)]);
+}
+
+// ==================== PARTICLES ====================
+function spawnParticles() {
+  const container = document.getElementById('particles');
+  const emojis = ['✨', '🌸', '💫', '🍬', '⭐', '🧁', '💖', '🌟', '🍪', '🎀'];
+  const fragment = document.createDocumentFragment();
+
+  for (let i = 0; i < 25; i++) {
+    const span = document.createElement('span');
+    span.className = 'particle';
+    span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    span.style.left = Math.random() * 100 + '%';
+    span.style.fontSize = (10 + Math.random() * 14) + 'px';
+    span.style.animationDuration = (10 + Math.random() * 20) + 's';
+    span.style.animationDelay = Math.random() * 15 + 's';
+    span.style.opacity = (0.15 + Math.random() * 0.2);
+    fragment.appendChild(span);
+  }
+
+  container.appendChild(fragment);
+}
+
+// ==================== CONFETTI ====================
+function spawnConfetti() {
+  const container = document.getElementById('confetti');
+  const colors = ['#7B68AE','#F8B4C2','#A8D8EA','#B5EAD7','#FFD700','#FF6B8A','#FFB347','#87CEEB'];
+  const shapes = ['🎉','🎊','✨','🌟','💖','🍬','🧁','💫'];
+
+  const fragment = document.createDocumentFragment();
+  for (let i = 0; i < 60; i++) {
+    const el = document.createElement('span');
+    el.className = 'confetti-piece';
+    el.textContent = shapes[Math.floor(Math.random()*shapes.length)];
+    el.style.left = Math.random() * 100 + '%';
+    el.style.top = -(Math.random() * 40) + 'px';
+    el.style.fontSize = (12 + Math.random() * 22) + 'px';
+    el.style.animationDuration = (1 + Math.random() * 2.5) + 's';
+    el.style.animationDelay = Math.random() * 0.6 + 's';
+    fragment.appendChild(el);
+  }
+
+  container.appendChild(fragment);
+  setTimeout(() => { container.innerHTML = ''; }, 3500);
+}
+
+// ==================== START ====================
+init();
+</script>
+
+</body>
+</html>
