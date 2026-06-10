@@ -1,0 +1,136 @@
+<h2>升级版设计 — 毛玻璃 + 更多可爱元素</h2>
+<p class="subtitle">iOS 风格毛玻璃，手机端适配 (375px 宽度)</p>
+
+<div style="background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 30%, #e8eaf6 60%, #e0f7fa 100%); border-radius: 24px; padding: 20px 12px; font-family: 'Segoe UI', system-ui, sans-serif; max-width: 375px; margin: 0 auto; box-shadow: 0 8px 32px rgba(123,104,174,0.12); position: relative; overflow: hidden;">
+
+  <!-- Floating particles -->
+  <div style="position: absolute; top: 40px; left: 20px; opacity: 0.4; font-size: 14px;">✨</div>
+  <div style="position: absolute; top: 120px; right: 30px; opacity: 0.3; font-size: 12px;">🌸</div>
+  <div style="position: absolute; top: 200px; left: 50px; opacity: 0.35; font-size: 10px;">💫</div>
+  <div style="position: absolute; top: 280px; right: 50px; opacity: 0.3; font-size: 14px;">🍬</div>
+  <div style="position: absolute; top: 340px; left: 30px; opacity: 0.25; font-size: 12px;">⭐</div>
+  <div style="position: absolute; bottom: 180px; right: 20px; opacity: 0.3; font-size: 10px;">🧁</div>
+
+  <!-- Frosted header -->
+  <div style="backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); background: rgba(255,255,255,0.65); border-radius: 20px; padding: 12px 16px; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; border: 1px solid rgba(255,255,255,0.8); box-shadow: 0 4px 16px rgba(123,104,174,0.08);">
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <div style="font-size: 22px;">🌟</div>
+      <div>
+        <div style="font-size: 15px; font-weight: 800; color: #5C4F8C; letter-spacing: 0.5px;">小马零食铺</div>
+      </div>
+    </div>
+    <div style="backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); background: rgba(123,104,174,0.12); border-radius: 16px; padding: 5px 10px; font-size: 10px; color: #7B68AE; font-weight: 600; border: 1px solid rgba(123,104,174,0.1);">
+      🛒 2件
+    </div>
+  </div>
+
+  <!-- Frosted search -->
+  <div style="backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); background: rgba(255,255,255,0.55); border-radius: 22px; padding: 10px 16px; display: flex; align-items: center; gap: 8px; margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.7); box-shadow: 0 2px 12px rgba(123,104,174,0.06);">
+    <span style="font-size: 14px;">🔍</span>
+    <span style="font-size: 12px; color: #C0B8D8;">搜搜想吃什么...</span>
+    <span style="margin-left: auto; font-size: 12px; opacity: 0.4;">🎤</span>
+  </div>
+
+  <!-- Frosted categories -->
+  <div style="display: flex; gap: 6px; margin-bottom: 14px; overflow-x: auto; padding: 0 2px;">
+    <div style="backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); background: rgba(123,104,174,0.85); color: white; border-radius: 18px; padding: 6px 14px; font-size: 10px; font-weight: 700; white-space: nowrap; border: 1px solid rgba(255,255,255,0.3); box-shadow: 0 2px 8px rgba(123,104,174,0.25);">🔥 全部</div>
+    <div style="backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); background: rgba(255,255,255,0.6); color: #888; border-radius: 18px; padding: 6px 14px; font-size: 10px; white-space: nowrap; border: 1px solid rgba(255,255,255,0.7);">🍪 饼干</div>
+    <div style="backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); background: rgba(255,255,255,0.6); color: #888; border-radius: 18px; padding: 6px 14px; font-size: 10px; white-space: nowrap; border: 1px solid rgba(255,255,255,0.7);">🍫 巧克力</div>
+    <div style="backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); background: rgba(255,255,255,0.6); color: #888; border-radius: 18px; padding: 6px 14px; font-size: 10px; white-space: nowrap; border: 1px solid rgba(255,255,255,0.7);">🍬 糖果</div>
+    <div style="backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); background: rgba(255,255,255,0.6); color: #888; border-radius: 18px; padding: 6px 14px; font-size: 10px; white-space: nowrap; border: 1px solid rgba(255,255,255,0.7);">🥤 饮品</div>
+  </div>
+
+  <!-- Product grid -->
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px;">
+    <!-- Card 1 -->
+    <div style="backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); background: rgba(255,255,255,0.6); border-radius: 18px; padding: 14px 10px; text-align: center; border: 1px solid rgba(255,255,255,0.7); box-shadow: 0 4px 16px rgba(123,104,174,0.06); transition: all 0.2s;">
+      <div style="font-size: 38px; margin-bottom: 6px; filter: drop-shadow(0 4px 4px rgba(0,0,0,0.08));">🍪</div>
+      <div style="background: rgba(255,182,193,0.3); border-radius: 8px; padding: 1px 6px; font-size: 7px; color: #D4687C; display: inline-block; margin-bottom: 4px;">🔥 热卖</div>
+      <div style="font-size: 12px; font-weight: 700; color: #5C4F8C;">黄油曲奇</div>
+      <div style="font-size: 9px; color: #B0A8CC; margin: 2px 0;">酥脆奶香</div>
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 6px;">
+        <span style="font-size: 13px; font-weight: 800; color: #7B68AE;">¥12.8</span>
+        <div style="backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); background: rgba(123,104,174,0.15); border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #7B68AE; font-weight: 700; border: 1px solid rgba(123,104,174,0.1);">+</div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div style="backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); background: rgba(255,255,255,0.6); border-radius: 18px; padding: 14px 10px; text-align: center; border: 1px solid rgba(255,255,255,0.7); box-shadow: 0 4px 16px rgba(123,104,174,0.06);">
+      <div style="font-size: 38px; margin-bottom: 6px; filter: drop-shadow(0 4px 4px rgba(0,0,0,0.08));">🍫</div>
+      <div style="background: rgba(179,157,219,0.25); border-radius: 8px; padding: 1px 6px; font-size: 7px; color: #7B68AE; display: inline-block; margin-bottom: 4px;">🆕 新品</div>
+      <div style="font-size: 12px; font-weight: 700; color: #5C4F8C;">生巧棒</div>
+      <div style="font-size: 9px; color: #B0A8CC; margin: 2px 0;">丝滑浓郁</div>
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 6px;">
+        <span style="font-size: 13px; font-weight: 800; color: #7B68AE;">¥15.0</span>
+        <div style="backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); background: rgba(123,104,174,0.15); border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #7B68AE; font-weight: 700; border: 1px solid rgba(123,104,174,0.1);">+</div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div style="backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); background: rgba(255,255,255,0.6); border-radius: 18px; padding: 14px 10px; text-align: center; border: 1px solid rgba(255,255,255,0.7); box-shadow: 0 4px 16px rgba(123,104,174,0.06);">
+      <div style="font-size: 38px; margin-bottom: 6px; filter: drop-shadow(0 4px 4px rgba(0,0,0,0.08));">🍬</div>
+      <div style="font-size: 12px; font-weight: 700; color: #5C4F8C;">水果软糖</div>
+      <div style="font-size: 9px; color: #B0A8CC; margin: 2px 0;">Q弹果味</div>
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 6px;">
+        <span style="font-size: 13px; font-weight: 800; color: #7B68AE;">¥6.0</span>
+        <div style="backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); background: rgba(123,104,174,0.15); border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #7B68AE; font-weight: 700; border: 1px solid rgba(123,104,174,0.1);">+</div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div style="backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); background: rgba(255,255,255,0.6); border-radius: 18px; padding: 14px 10px; text-align: center; border: 1px solid rgba(255,255,255,0.7); box-shadow: 0 4px 16px rgba(123,104,174,0.06);">
+      <div style="font-size: 38px; margin-bottom: 6px; filter: drop-shadow(0 4px 4px rgba(0,0,0,0.08));">🥤</div>
+      <div style="font-size: 12px; font-weight: 700; color: #5C4F8C;">果味气泡水</div>
+      <div style="font-size: 9px; color: #B0A8CC; margin: 2px 0;">清爽解腻</div>
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 6px;">
+        <span style="font-size: 13px; font-weight: 800; color: #7B68AE;">¥5.5</span>
+        <div style="backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); background: rgba(123,104,174,0.15); border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #7B68AE; font-weight: 700; border: 1px solid rgba(123,104,174,0.1);">+</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Frosted bottom cart bar -->
+  <div style="backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); background: rgba(255,255,255,0.7); border-radius: 20px; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; border: 1px solid rgba(255,255,255,0.8); box-shadow: 0 -4px 20px rgba(123,104,174,0.08);">
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <div style="background: linear-gradient(135deg, #7B68AE, #9B8EC8); color: white; border-radius: 50%; width: 28px; height: 28px; font-size: 11px; display: flex; align-items: center; justify-content: center; font-weight: 700; box-shadow: 0 3px 10px rgba(123,104,174,0.3);">3</div>
+      <div>
+        <div style="font-size: 13px; font-weight: 800; color: #5C4F8C;">¥39.30</div>
+        <div style="font-size: 8px; color: #C0B8D8;">预计 15 分钟取</div>
+      </div>
+    </div>
+    <div style="background: linear-gradient(135deg, #7B68AE, #9B8EC8, #B8A8E0); color: white; border-radius: 22px; padding: 9px 18px; font-size: 11px; font-weight: 700; box-shadow: 0 4px 14px rgba(123,104,174,0.35); letter-spacing: 1px;">
+      去结算 ✨
+    </div>
+  </div>
+
+  <!-- Mascot -->
+  <div style="position: absolute; bottom: 70px; right: 8px; font-size: 28px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); animation: none;">
+    🐱
+    <div style="background: white; border-radius: 10px; padding: 3px 8px; font-size: 8px; color: #7B68AE; position: absolute; top: -18px; right: -10px; white-space: nowrap; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+      💬 好吃哦~
+    </div>
+  </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px;">
+  <div style="background: rgba(255,255,255,0.6); backdrop-filter: blur(12px); border-radius: 14px; padding: 12px; text-align: center; border: 1px solid rgba(255,255,255,0.7);">
+    <div style="font-size: 22px;">✨</div>
+    <div style="font-weight: 700; color: #7B68AE; font-size: 11px; margin-top: 4px;">毛玻璃贯穿</div>
+    <div style="font-size: 9px; color: #888; margin-top: 3px;">header/搜索/标签<br/>卡片/底部栏<br/>全部 blur 半透明</div>
+  </div>
+  <div style="background: rgba(255,255,255,0.6); backdrop-filter: blur(12px); border-radius: 14px; padding: 12px; text-align: center; border: 1px solid rgba(255,255,255,0.7);">
+    <div style="font-size: 22px;">🎨</div>
+    <div style="font-weight: 700; color: #7B68AE; font-size: 11px; margin-top: 4px;">渐变底色</div>
+    <div style="font-size: 9px; color: #888; margin-top: 3px;">粉紫蓝绿柔和渐变<br/>背景飘落粒子<br/>梦幻氛围</div>
+  </div>
+  <div style="background: rgba(255,255,255,0.6); backdrop-filter: blur(12px); border-radius: 14px; padding: 12px; text-align: center; border: 1px solid rgba(255,255,255,0.7);">
+    <div style="font-size: 22px;">🐱</div>
+    <div style="font-weight: 700; color: #7B68AE; font-size: 11px; margin-top: 4px;">猫咪气泡对话</div>
+    <div style="font-size: 9px; color: #888; margin-top: 3px;">操作时弹出<br/>"好吃哦~"<br/>"选得好!"</div>
+  </div>
+  <div style="background: rgba(255,255,255,0.6); backdrop-filter: blur(12px); border-radius: 14px; padding: 12px; text-align: center; border: 1px solid rgba(255,255,255,0.7);">
+    <div style="font-size: 22px;">🏷️</div>
+    <div style="font-weight: 700; color: #7B68AE; font-size: 11px; margin-top: 4px;">商品标签</div>
+    <div style="font-size: 9px; color: #888; margin-top: 3px;">🔥热卖 🆕新品<br/>⭐推荐 🏷️限时<br/>增加活泼感</div>
+  </div>
+</div>

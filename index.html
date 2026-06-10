@@ -189,13 +189,39 @@ body {
   animation: fadeUp 0.4s ease-out backwards;
 }
 .product-card:active { transform:scale(0.95); }
+.product-card .emoji-wrap {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.emoji-bg {
+  position: absolute;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(123,104,174,0.08), rgba(168,216,234,0.12));
+  animation: pulseBg 3s ease-in-out infinite;
+}
+@keyframes pulseBg {
+  0%,100% { transform:scale(1); }
+  50% { transform:scale(1.08); }
+}
 .product-card .emoji {
-  font-size: 42px;
-  margin-bottom: 6px;
-  filter: drop-shadow(0 4px 4px rgba(0,0,0,0.08));
+  font-size: 36px;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
   transition: transform 0.3s;
 }
-.product-card:active .emoji { transform:scale(1.15); }
+.product-card .emoji img {
+  width: 36px !important;
+  height: 36px !important;
+}
+.product-card:active .emoji { transform:scale(1.2); }
 .product-card .name {
   font-size: 12px;
   font-weight: 700;
@@ -666,7 +692,22 @@ body {
   <!-- Mascot -->
   <div class="mascot" id="mascot" onclick="pokeMascot()">
     <div class="mascot-bubble" id="mascotBubble">好吃哦~</div>
-    🐱
+    <svg width="52" height="52" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="26" cy="30" rx="22" ry="19" fill="#FFE0E8" stroke="#E8B4C8" stroke-width="1.2"/>
+      <ellipse cx="13" cy="14" rx="7" ry="8.5" fill="#FFE0E8" stroke="#E8B4C8" stroke-width="1"/>
+      <ellipse cx="39" cy="14" rx="7" ry="8.5" fill="#FFE0E8" stroke="#E8B4C8" stroke-width="1"/>
+      <ellipse cx="13" cy="14" rx="4.5" ry="6" fill="#FFD0DC"/>
+      <ellipse cx="39" cy="14" rx="4.5" ry="6" fill="#FFD0DC"/>
+      <circle cx="14" cy="12" r="2.5" fill="#5C4F8C"/>
+      <circle cx="38" cy="12" r="2.5" fill="#5C4F8C"/>
+      <circle cx="15" cy="11" r="0.8" fill="white"/>
+      <circle cx="39" cy="11" r="0.8" fill="white"/>
+      <ellipse cx="26" cy="26" rx="3.5" ry="2.5" fill="#F8A0B8"/>
+      <path d="M22 32 Q26 38 30 32" fill="none" stroke="#E8B4C8" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="26" y1="33" x2="26" y2="36" stroke="#E8B4C8" stroke-width="1"/>
+      <path d="M2 18 Q10 12 13 14" fill="none" stroke="#E8B4C8" stroke-width="0.8"/>
+      <path d="M50 18 Q42 12 39 14" fill="none" stroke="#E8B4C8" stroke-width="0.8"/>
+    </svg>
   </div>
 
   <!-- Toast -->
@@ -677,6 +718,7 @@ body {
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script>
 <script src="config.js"></script>
 <script src="products.js"></script>
 <script>
@@ -781,12 +823,19 @@ function renderProducts() {
     grid.innerHTML = filtered.slice(0, 200).map((p, i) => `
       <div class="product-card glass" style="animation-delay:${i*0.02}s" onclick="addToCart(${p.id})">
         ${Math.random() < 0.15 ? '<span class="tag" style="background:rgba(255,182,193,0.3);color:#E85D75;">🔥热卖</span>' : ''}
-        <div class="emoji">${p.emoji}</div>
+        <div class="emoji-wrap">
+          <div class="emoji-bg"></div>
+          <div class="emoji">${p.emoji}</div>
+        </div>
         <div class="name">${p.name}</div>
         <div class="price">¥${p.price.toFixed(1)}</div>
         <span class="add-btn">＋ 加入</span>
       </div>
     `).join('');
+    // Render emojis with Twemoji
+    if (window.twemoji) {
+      twemoji.parse(document.getElementById('productGrid'), {folder:'svg',ext:'.svg'});
+    }
   }
 
   count.textContent = filtered.length > 200
@@ -883,8 +932,9 @@ function renderCartItems() {
 
   if (cart.length === 0) {
     el.innerHTML = `<div class="empty-cart">
-      <div class="empty-icon">🛒</div>
-      <div>购物车空空如也~<br/>去选点好吃的吧!</div></div>`;
+      <svg width="80" height="80" viewBox="0 0 80 80" style="margin-bottom:12px"><circle cx="40" cy="40" r="38" fill="rgba(123,104,174,0.06)"/><text x="40" y="55" text-anchor="middle" font-size="44">🛒</text></svg>
+      <div style="font-size:15px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;">购物车空空如也~</div>
+      <div>去选点好吃的吧!</div></div>`;
   } else {
     el.innerHTML = cart.map(item => `
       <div class="cart-item glass">
@@ -988,8 +1038,9 @@ function renderOrders(orders) {
 
   if (orders.length === 0) {
     el.innerHTML = `<div class="empty-orders glass" style="padding:50px 20px;">
-      <div class="empty-icon">📋</div>
-      <div style="font-size:15px;">还没有订单</div></div>`;
+      <svg width="100" height="100" viewBox="0 0 100 100" style="margin-bottom:16px"><circle cx="50" cy="50" r="46" fill="rgba(123,104,174,0.05)"/><rect x="30" y="25" width="40" height="50" rx="6" fill="rgba(123,104,174,0.1)" stroke="rgba(123,104,174,0.2)" stroke-width="1.5"/><line x1="38" y1="38" x2="62" y2="38" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="38" y1="46" x2="58" y2="46" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="38" y1="54" x2="52" y2="54" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+      <div style="font-size:16px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;">还没有订单</div>
+      <div style="font-size:12px;color:#C0B8D8;">下单后会出现在这里哦~</div></div>`;
     return;
   }
 

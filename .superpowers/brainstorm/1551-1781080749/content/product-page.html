@@ -1,0 +1,80 @@
+<h2>商品浏览页 — 详细设计</h2>
+<p class="subtitle">这是家人用得最多的页面</p>
+
+<div class="section">
+  <h3>页面布局结构</h3>
+  <div style="background: linear-gradient(180deg, #E8D5F5 0%, #f5f0fa 30%, #fafafa 100%); border-radius: 16px; padding: 16px; font-family: 'Segoe UI', sans-serif; max-width: 320px; margin: 0 auto; box-shadow: 0 4px 20px rgba(123,104,174,0.08);">
+    <!-- Header -->
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+      <div>
+        <div style="font-size: 16px; font-weight: 700; color: #7B68AE;">🌟 小马零食铺</div>
+      </div>
+      <div style="background: white; border-radius: 20px; padding: 5px 10px; font-size: 10px; color: #7B68AE; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
+        🛒 <span style="font-weight: 700;">¥21.3</span>
+      </div>
+    </div>
+
+    <!-- Search -->
+    <div style="background: white; border-radius: 20px; padding: 8px 14px; display: flex; align-items: center; gap: 6px; margin-bottom: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+      <span>🔍</span><span style="font-size: 11px; color: #CCC;">搜零食...</span>
+    </div>
+
+    <!-- Category chips -->
+    <div style="display: flex; gap: 5px; margin-bottom: 10px; overflow: hidden;">
+      <div style="background: #7B68AE; color: white; border-radius: 16px; padding: 4px 10px; font-size: 9px; font-weight: 600; white-space: nowrap;">🔥 全部</div>
+      <div style="background: white; color: #888; border-radius: 16px; padding: 4px 10px; font-size: 9px; white-space: nowrap;">🍪 饼干</div>
+      <div style="background: white; color: #888; border-radius: 16px; padding: 4px 10px; font-size: 9px; white-space: nowrap;">🍫 巧克力</div>
+      <div style="background: white; color: #888; border-radius: 16px; padding: 4px 10px; font-size: 9px; white-space: nowrap;">🍬 糖果</div>
+    </div>
+
+    <!-- Product grid -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px;">
+      <div style="background: white; border-radius: 12px; padding: 12px 8px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+        <div style="font-size: 32px; margin-bottom: 4px;">🍪</div>
+        <div style="font-size: 10px; font-weight: 700; color: #555;">黄油曲奇</div>
+        <div style="font-size: 8px; color: #AAA; margin: 2px 0;">酥脆香甜</div>
+        <div style="font-size: 12px; color: #7B68AE; font-weight: 700;">¥12.80</div>
+        <div style="background: #E8D5F5; color: #7B68AE; border-radius: 12px; padding: 3px 10px; font-size: 8px; font-weight: 600; margin-top: 4px; display: inline-block;">+ 加入</div>
+      </div>
+      <div style="background: white; border-radius: 12px; padding: 12px 8px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+        <div style="font-size: 32px; margin-bottom: 4px;">🍫</div>
+        <div style="font-size: 10px; font-weight: 700; color: #555;">巧克力棒</div>
+        <div style="font-size: 8px; color: #AAA; margin: 2px 0;">浓郁可可</div>
+        <div style="font-size: 12px; color: #7B68AE; font-weight: 700;">¥8.50</div>
+        <div style="background: #E8D5F5; color: #7B68AE; border-radius: 12px; padding: 3px 10px; font-size: 8px; font-weight: 600; margin-top: 4px; display: inline-block;">+ 加入</div>
+      </div>
+    </div>
+
+    <!-- Bottom cart bar -->
+    <div style="background: white; border-radius: 16px; padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 -2px 12px rgba(0,0,0,0.05);">
+      <div style="display: flex; align-items: center; gap: 6px;">
+        <div style="background: #7B68AE; color: white; border-radius: 50%; width: 22px; height: 22px; font-size: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700;">3</div>
+        <div>
+          <div style="font-size: 11px; font-weight: 700; color: #7B68AE;">¥36.10</div>
+          <div style="font-size: 8px; color: #BBB;">共 3 件</div>
+        </div>
+      </div>
+      <div style="background: linear-gradient(135deg, #7B68AE, #9B8EC8); color: white; border-radius: 20px; padding: 7px 16px; font-size: 10px; font-weight: 700;">
+        去结算 →
+      </div>
+    </div>
+
+    <!-- Mascot -->
+    <div style="position: relative; margin-top: -8px; text-align: right;">
+      <span style="font-size: 20px; display: inline-block;">🐱</span>
+    </div>
+  </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px;">
+  <div style="background: white; border-radius: 10px; padding: 12px; text-align: center; border: 2px solid #E8D5F5;">
+    <div style="font-size: 24px;">🛒</div>
+    <div style="font-weight: 700; color: #7B68AE; font-size: 12px; margin-top: 4px;">购物车弹窗</div>
+    <div style="font-size: 9px; color: #888; margin-top: 4px;">底部滑出半屏<br/>修改数量/删除<br/>一键提交</div>
+  </div>
+  <div style="background: white; border-radius: 10px; padding: 12px; text-align: center; border: 2px solid #E8D5F5;">
+    <div style="font-size: 24px;">📋</div>
+    <div style="font-weight: 700; color: #7B68AE; font-size: 12px; margin-top: 4px;">订单管理页</div>
+    <div style="font-size: 9px; color: #888; margin-top: 4px;">订单列表卡片<br/>按时间排列<br/>查看详情</div>
+  </div>
+</div>
